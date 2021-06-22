@@ -2,7 +2,6 @@
   <Frame name="PaintMyUICore" mixin="PaintMyUICoreMixin">
     <Scripts>
       <OnLoad method="OnLoad"/>
-      <OnUpdate method="OnUpdate"/>
       <OnEvent method="OnEvent"/>
     </Scripts>
   </Frame>

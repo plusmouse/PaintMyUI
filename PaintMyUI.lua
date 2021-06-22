@@ -11,32 +11,9 @@ function PaintMyUICoreMixin:OnEvent(eventName, name)
   if eventName == "ADDON_LOADED" and name == "PaintMyUI" then
     self.objects = GetAllRegions(UIParent)
     self:Paint(PAINT_MY_UI_COLOR)
-    self.position = 255
     FrameUtil.UnregisterFrameForEvents(self, CORE_EVENTS)
   end
 end
-
-function PaintMyUICoreMixin:OnUpdate(elapsed)
-  if self.objects == nil then
-    return
-  end
-
-  self.position = self.position + elapsed * 255
-
-  if self.position > 255*2 then
-    self.position = 0
-  end
-
-  local color
-  if self.position > 255 then
-    color = CreateColorFromBytes(255, math.floor(255*2 - self.position), 0, 255)
-  else
-    color = CreateColorFromBytes(255, math.floor(self.position), 0, 255)
-  end
-
-  self:Paint(color)
-end
-
 
 function GetAllRegions(frame)
   local result = {}
