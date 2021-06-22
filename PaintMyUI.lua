@@ -30,9 +30,7 @@ function GetAllTextures(frame)
 
   for _, c in ipairs({frame:GetChildren()}) do
     for _, r in ipairs(GetAllTextures(c)) do
-      if r:GetObjectType() == "Texture" then
-        table.insert(result, r)
-      end
+      table.insert(result, r)
     end
   end
 
