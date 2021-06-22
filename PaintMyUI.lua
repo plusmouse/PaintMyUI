@@ -1,4 +1,4 @@
-local function GetAllTextures(frame)
+local function GetAllTextures(frame, check)
   local result = {}
 
   if frame:IsForbidden() then
@@ -6,25 +6,30 @@ local function GetAllTextures(frame)
   end
 
   for _, r in ipairs({frame:GetRegions()}) do
-    if r:GetObjectType() == "Texture" then
-      if r:GetParent() and r:GetParent():GetParent() then
-        local lookingFor = r:GetParent()
-        for k, v in pairs(r:GetParent():GetParent()) do
-          if v == lookingFor and k == "NineSlice" then
-            table.insert(result, r)
-          end
-        end
-      end
+    if r:GetObjectType() == "Texture" and (not check or check(r)) then
+      table.insert(result, r)
     end
   end
 
   for _, c in ipairs({frame:GetChildren()}) do
-    for _, r in ipairs(GetAllTextures(c)) do
+    for _, r in ipairs(GetAllTextures(c, check)) do
       table.insert(result, r)
     end
   end
 
   return result
+end
+
+local function NineSlicesCheck(region)
+  if region:GetParent() and region:GetParent():GetParent() then
+    local lookingFor = region:GetParent()
+    for key, value in pairs(region:GetParent():GetParent()) do
+      if value == lookingFor and key == "NineSlice" then
+        return true
+      end
+    end
+  end
+  return false
 end
 
 local CORE_EVENTS = {
@@ -40,7 +45,7 @@ function PaintMyUICoreMixin:OnEvent(eventName, name)
   if eventName == "ADDON_LOADED" then
     PAINT_MY_UI_COLOR = PAINT_MY_UI_COLOR or {r = 1, g = 0, b = 1}
 
-    self:Paint(GetAllTextures(UIParent), PAINT_MY_UI_COLOR)
+    self:Paint(GetAllTextures(UIParent, NineSlicesCheck), PAINT_MY_UI_COLOR)
   end
 end
 
