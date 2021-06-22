@@ -7,7 +7,14 @@ local function GetAllTextures(frame)
 
   for _, r in ipairs({frame:GetRegions()}) do
     if r:GetObjectType() == "Texture" then
-      table.insert(result, r)
+      if r:GetParent() and r:GetParent():GetParent() then
+        local lookingFor = r:GetParent()
+        for k, v in pairs(r:GetParent():GetParent()) do
+          if v == lookingFor and k == "NineSlice" then
+            table.insert(result, r)
+          end
+        end
+      end
     end
   end
 
