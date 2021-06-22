@@ -1,21 +1,4 @@
-local CORE_EVENTS = {
-  "ADDON_LOADED"
-}
-PaintMyUICoreMixin = {}
-
-function PaintMyUICoreMixin:OnLoad()
-  FrameUtil.RegisterFrameForEvents(self, CORE_EVENTS)
-end
-
-function PaintMyUICoreMixin:OnEvent(eventName, name)
-  if eventName == "ADDON_LOADED" and name == "PaintMyUI" then
-    FrameUtil.UnregisterFrameForEvents(self, CORE_EVENTS)
-
-    self:Paint(GetAllTextures(UIParent), PAINT_MY_UI_COLOR)
-  end
-end
-
-function GetAllTextures(frame)
+local function GetAllTextures(frame)
   local result = {}
 
   if frame:IsForbidden() then
@@ -35,6 +18,23 @@ function GetAllTextures(frame)
   end
 
   return result
+end
+
+local CORE_EVENTS = {
+  "ADDON_LOADED"
+}
+PaintMyUICoreMixin = {}
+
+function PaintMyUICoreMixin:OnLoad()
+  FrameUtil.RegisterFrameForEvents(self, CORE_EVENTS)
+end
+
+function PaintMyUICoreMixin:OnEvent(eventName, name)
+  if eventName == "ADDON_LOADED" and name == "PaintMyUI" then
+    FrameUtil.UnregisterFrameForEvents(self, CORE_EVENTS)
+
+    self:Paint(GetAllTextures(UIParent), PAINT_MY_UI_COLOR)
+  end
 end
 
 function PaintMyUICoreMixin:Paint(textures, color)
