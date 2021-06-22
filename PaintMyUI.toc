@@ -1,11 +1,9 @@
 ## Interface: 90005
 ## Title: Paint My UI
-## Version: 0
+## Version: @project-version@
 ## Author: plusmouse
 ## Notes: Recolour the entire vanilla WoW UI
-## Dependencies: Blizzard_TimeManager
+## SavedVariables: PAINT_MY_UI_COLOR
 
 PaintMyUI.lua
 PaintMyUI.xml
-
-Config.lua

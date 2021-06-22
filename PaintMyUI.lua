@@ -30,8 +30,8 @@ function PaintMyUICoreMixin:OnLoad()
 end
 
 function PaintMyUICoreMixin:OnEvent(eventName, name)
-  if eventName == "ADDON_LOADED" and name == "PaintMyUI" then
-    FrameUtil.UnregisterFrameForEvents(self, CORE_EVENTS)
+  if eventName == "ADDON_LOADED" then
+    PAINT_MY_UI_COLOR = PAINT_MY_UI_COLOR or {r = 1, g = 0, b = 1}
 
     self:Paint(GetAllTextures(UIParent), PAINT_MY_UI_COLOR)
   end
