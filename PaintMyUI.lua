@@ -9,13 +9,13 @@ end
 
 function PaintMyUICoreMixin:OnEvent(eventName, name)
   if eventName == "ADDON_LOADED" and name == "PaintMyUI" then
-    self.objects = GetAllRegions(UIParent)
-    self:Paint(PAINT_MY_UI_COLOR)
     FrameUtil.UnregisterFrameForEvents(self, CORE_EVENTS)
+
+    self:Paint(GetAllTextures(UIParent), PAINT_MY_UI_COLOR)
   end
 end
 
-function GetAllRegions(frame)
+function GetAllTextures(frame)
   local result = {}
 
   if frame:IsForbidden() then
@@ -29,7 +29,7 @@ function GetAllRegions(frame)
   end
 
   for _, c in ipairs({frame:GetChildren()}) do
-    for _, r in ipairs(GetAllRegions(c)) do
+    for _, r in ipairs(GetAllTextures(c)) do
       if r:GetObjectType() == "Texture" then
         table.insert(result, r)
       end
@@ -39,8 +39,8 @@ function GetAllRegions(frame)
   return result
 end
 
-function PaintMyUICoreMixin:Paint(color)
-  for _, o in pairs(self.objects) do
+function PaintMyUICoreMixin:Paint(textures, color)
+  for _, o in pairs(textures) do
     o:SetVertexColor(color.r, color.g, color.b, color.a)
   end
 end
