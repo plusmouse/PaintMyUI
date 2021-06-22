@@ -1,0 +1,9 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/">
+  <Frame name="PaintMyUICore" mixin="PaintMyUICoreMixin">
+    <Scripts>
+      <OnLoad method="OnLoad"/>
+      <OnUpdate method="OnUpdate"/>
+      <OnEvent method="OnEvent"/>
+    </Scripts>
+  </Frame>
+</Ui>
