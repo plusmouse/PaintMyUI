@@ -5,5 +5,6 @@
 ## Notes: Recolour the entire vanilla WoW UI
 ## SavedVariables: PAINT_MY_UI_COLOR
 
+SlashCMD.lua
 PaintMyUI.lua
 PaintMyUI.xml

@@ -32,6 +32,16 @@ local function NineSlicesCheck(region)
   return false
 end
 
+local function AllRegionsCheck(region)
+  return true
+end
+
+local function Paint(textures, color)
+  for _, o in pairs(textures) do
+    o:SetVertexColor(color.r, color.g, color.b, color.a)
+  end
+end
+
 local CORE_EVENTS = {
   "ADDON_LOADED"
 }
@@ -39,18 +49,18 @@ PaintMyUICoreMixin = {}
 
 function PaintMyUICoreMixin:OnLoad()
   FrameUtil.RegisterFrameForEvents(self, CORE_EVENTS)
+  PaintMyUI_SetupSlashCMD()
 end
 
 function PaintMyUICoreMixin:OnEvent(eventName, name)
   if eventName == "ADDON_LOADED" then
     PAINT_MY_UI_COLOR = PAINT_MY_UI_COLOR or {r = 1, g = 0, b = 1}
+    self.textures = GetAllTextures(UIParent, NineSlicesCheck)
 
-    self:Paint(GetAllTextures(UIParent, NineSlicesCheck), PAINT_MY_UI_COLOR)
+    self:Paint()
   end
 end
 
-function PaintMyUICoreMixin:Paint(textures, color)
-  for _, o in pairs(textures) do
-    o:SetVertexColor(color.r, color.g, color.b, color.a)
-  end
+function PaintMyUICoreMixin:Paint()
+  Paint(self.textures, PAINT_MY_UI_COLOR)
 end
