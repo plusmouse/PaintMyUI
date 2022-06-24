@@ -5,6 +5,10 @@ local function GetAllTextures(frame, check)
     return result
   end
 
+  if frame:GetObjectType() == "Texture" then
+    return {frame}
+  end
+
   for _, r in ipairs({frame:GetRegions()}) do
     if r:GetObjectType() == "Texture" and (not check or check(r)) then
       table.insert(result, r)
@@ -43,7 +47,8 @@ local allRegionDetails = {
   {f = FocusFrame},
   {f = Minimap},
   {f = MinimapCluster},
-  {f = MainMenuBarArtFrame},
+  {f = MainMenuBarArtFrame.LeftEndCap},
+  {f = MainMenuBarArtFrame.RightEndCap},
 }
 
 local function Paint(textures, color)
